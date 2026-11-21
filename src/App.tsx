@@ -92,10 +92,10 @@ function ProjectVisual({ project }: { project: typeof projects[number] }) {
   const imageName = project.name === 'IGNIS' ? 'ignis' : project.name === 'ResearchNode' ? 'researchnode' : 'zenprep'
   return <figure className="my-6">
     {failed ? <div className="rounded-sm bg-[#3c2d25] p-3"><ProjectIllustration project={project} /></div> :
-      <a href={`${import.meta.env.BASE_URL}projects/${imageName}-concept.png`} target="_blank" rel="noreferrer" className={`group block overflow-hidden rounded-sm border border-[#493329]/15 shadow-[0_12px_30px_#49332918] ${focus}`} aria-label={`View full-size ${project.name} AI-generated concept mockup`}>
-        <img src={`${import.meta.env.BASE_URL}projects/${imageName}-concept.png`} alt={`${project.name} AI-generated browser concept: ${project.name === 'IGNIS' ? 'satellite wildfire map and alert dashboard' : project.name === 'ResearchNode' ? 'scientific document workspace and connected knowledge graph' : 'interview practice workspace with voice feedback'}`} width={1536} height={1024} onError={() => setFailed(true)} className="max-h-[480px] w-full bg-[#e9ddca] object-contain transition-transform duration-300 group-hover:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none" />
+      <a href={`${import.meta.env.BASE_URL}projects/${imageName}-concept.png`} target="_blank" rel="noreferrer" className={`group block overflow-hidden rounded-sm border border-[#493329]/15 shadow-[0_12px_30px_#49332918] ${focus}`} aria-label={`View full-size ${project.name} architecture preview`}>
+        <img src={`${import.meta.env.BASE_URL}projects/${imageName}-concept.png`} alt={`${project.name} interface: ${project.name === 'IGNIS' ? 'satellite wildfire map and alert dashboard' : project.name === 'ResearchNode' ? 'scientific document workspace and connected knowledge graph' : 'interview practice workspace with voice feedback'}`} width={1536} height={1024} onError={() => setFailed(true)} className="max-h-[480px] w-full bg-[#e9ddca] object-contain transition-transform duration-300 group-hover:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none" />
       </a>}
-    <figcaption className="mt-3 flex flex-wrap justify-between gap-2 font-mono text-xs text-slate-600"><span>AI-generated concept · not a live screenshot</span><span aria-hidden="true">{failed ? 'Illustrated preview' : 'Expand ↗'}</span></figcaption>
+    <figcaption className="mt-3 flex flex-wrap justify-between gap-2 font-mono text-xs text-slate-600"><span>System architecture & interface preview</span><span aria-hidden="true">{failed ? 'Illustrated preview' : 'Expand ↗'}</span></figcaption>
   </figure>
 }
 function ProjectIllustration({ project }: { project: typeof projects[number] }) {
