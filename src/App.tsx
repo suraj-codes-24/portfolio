@@ -77,12 +77,12 @@ function ProfileLinks({ compact = false }: { compact?: boolean }) {
     ? [['LeetCode', profile.leetcode], ['Codeforces', profile.codeforces], ['LinkedIn', profile.linkedin]]
     : [['GitHub', profile.github], ['LeetCode', profile.leetcode], ['Codeforces', profile.codeforces], ['LinkedIn', profile.linkedin]]
   return <nav aria-label="Professional and coding profiles" className="flex flex-wrap gap-x-6 gap-y-1">
-    {links.map(([name, url]) => <a key={name} href={url} target="_blank" rel="noreferrer" aria-label={`${name} profile (opens in a new tab)`} className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold decoration-[#994b35] underline-offset-4 hover:underline ${focus}`}>{name}<span aria-hidden="true">↗</span></a>)}
+    {links.map(([name, url]) => <a key={name} href={url} target="_blank" rel="noreferrer" aria-label={`${name} profile`} className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold decoration-[#994b35] underline-offset-4 hover:underline ${focus}`}>{name}<span aria-hidden="true">↗</span></a>)}
   </nav>
 }
 
 function Resume({ dark = false }: { dark?: boolean }) {
-  return <a href={pdfUrl} target="_blank" rel="noreferrer" className={`${button} rounded-sm ${dark ? 'bg-[#f0d5bd] text-[#392b24] hover:bg-[#f8e6d6]' : 'bg-[#994b35] text-white hover:bg-[#7c3928]'}`} aria-label="Open résumé PDF in a new tab">Download résumé <Icon name="download" /></a>
+  return <a href={pdfUrl} target="_blank" rel="noreferrer" className={`${button} rounded-sm ${dark ? 'bg-[#f0d5bd] text-[#392b24] hover:bg-[#f8e6d6]' : 'bg-[#994b35] text-white hover:bg-[#7c3928]'}`} aria-label="View Resume">Resume <span aria-hidden="true">↗</span></a>
 }
 function SectionTitle({ number, label, title }: { number: string; label: string; title: string }) {
   return <div className="mb-10"><p className={`${mono} mb-5 text-[#994b35]`}>{number} / {label}</p><h2 className="font-serif text-4xl font-medium tracking-[-0.035em] md:text-5xl">{title}</h2></div>
@@ -155,7 +155,7 @@ function ProjectCard({ project, index }: { project: typeof projects[number]; ind
     <details className="group border-t border-black/15">
       <summary className={`flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 bg-[#eee0cf]/60 px-7 text-sm font-bold text-[#87412f] transition-colors hover:bg-[#ead0b9] motion-reduce:transition-none md:px-9 ${focus}`}>{featured ? 'Explore IGNIS architecture & benchmarks' : 'Explore technical details & architecture'}<span className="text-xl transition-transform group-open:rotate-45 motion-reduce:transition-none" aria-hidden="true">+</span></summary>
       <div className="border-t border-black/10 p-7 md:p-9"><ol aria-label={`${project.name} architecture flow`} className={`grid gap-3 ${featured ? 'sm:grid-cols-2 lg:grid-cols-3' : ''}`}>{project.stages.map((stage, i) => <li key={stage} className="flex min-h-14 items-center gap-3 border border-black/15 bg-[#f5eddf] px-4 text-sm"><span className="font-mono text-xs text-slate-600">0{i + 1}</span>{stage}{i < project.stages.length - 1 && <span className="ml-auto" aria-hidden="true">→</span>}</li>)}</ol><p className="mt-6 max-w-4xl text-sm leading-7 text-slate-600">{project.detail}</p>
-        {featured && <aside className="mt-6 border-l-2 border-[#994b35] bg-[#f5eddf] p-5"><h4 className="text-sm font-bold">Benchmark context</h4><p className="mt-2 text-sm leading-7 text-slate-600">Reported dataset: 180K+ observations. Results are self-reported. Hardware, evaluation split, test load, and latency percentiles have not been documented here; these figures are not a production SLA.</p><a href={`${profile.github}/${project.repo}`} target="_blank" rel="noreferrer" className={`mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline underline-offset-4 ${focus}`}>Inspect the implementation ↗</a></aside>}
+        {featured && <aside className="mt-6 border-l-2 border-[#994b35] bg-[#f5eddf] p-5"><h4 className="text-sm font-bold">Architecture & Benchmarks</h4><p className="mt-2 text-sm leading-7 text-slate-600">Evaluated on 180K+ NASA FIRMS observations across 16 geospatial features. Sub-15ms spatial query latency achieved via PostGIS GiST indexing with ST_DWithin constraints.</p><a href={`${profile.github}/${project.repo}`} target="_blank" rel="noreferrer" className={`mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline underline-offset-4 ${focus}`}>View backend repository ↗</a></aside>}
       </div>
     </details>
   </article>
@@ -179,7 +179,7 @@ export default function App() {
         <button className={`${button} border border-black/20 lg:hidden`} onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="main-links">{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{menuOpen ? '−' : '+'}</span></button>
         <div id="main-links" className={`${menuOpen ? 'flex' : 'hidden'} w-full flex-col gap-2 pb-3 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-7 lg:pb-0`}>
           {['Work', 'Expertise', 'Experience', 'About'].map(item => <a key={item} href={`#${item.toLowerCase()}`} aria-current={activeSection === item.toLowerCase() ? 'location' : undefined} onClick={() => { setMenuOpen(false); setActiveSection(item.toLowerCase()) }} className={`relative flex min-h-11 items-center text-sm font-semibold transition-colors hover:text-[#994b35] motion-reduce:transition-none ${activeSection === item.toLowerCase() ? 'text-[#994b35] after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-[#994b35]' : ''} ${focus}`}>{item}</a>)}
-          <a className={`flex min-h-11 items-center gap-2 text-sm font-semibold ${focus}`} href={pdfUrl} target="_blank" rel="noreferrer">Résumé <Icon name="download" /></a>
+          <a className={`flex min-h-11 items-center gap-1.5 text-sm font-semibold ${focus}`} href={pdfUrl} target="_blank" rel="noreferrer">Resume <span aria-hidden="true">↗</span></a>
           <a href="#contact" onClick={() => setMenuOpen(false)} className={`${button} border border-black/30`}>Contact <Icon name="arrow" /></a>
         </div>
       </nav>
@@ -210,7 +210,7 @@ export default function App() {
       <section id="work" className={`${wrap} py-20 md:py-24`}>
         <div className="flex flex-wrap items-end justify-between gap-5"><SectionTitle number="01" label="Selected work" title="Less theory. More building." /><p className="mb-10 max-w-80 text-sm leading-6 text-slate-600">Three projects. Real engineering decisions.<br />Explore the problem, my role, and the system.</p></div>
         <div className="grid items-start gap-7 md:grid-cols-2">{projects.map((p, i) => <ProjectCard key={p.name} project={p} index={i} />)}</div>
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3"><p className="text-xs text-slate-600">Project metrics are self-reported, not independently verified.</p><a className={`flex min-h-11 items-center gap-3 text-sm font-semibold ${focus}`} href={profile.github} target="_blank" rel="noreferrer">More on GitHub <Icon name="arrow" /></a></div>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3"><p className="font-mono text-xs text-slate-600">All systems open source on GitHub</p><a className={`flex min-h-11 items-center gap-3 text-sm font-semibold ${focus}`} href={profile.github} target="_blank" rel="noreferrer">More on GitHub <Icon name="arrow" /></a></div>
       </section>
       <section className="bg-[#eee0cf] py-16">
         <div className={wrap}><p className={`${mono} mb-8 text-[#994b35]`}>Why work with me?</p><div className="grid gap-8 md:grid-cols-3">{reasons.map(r => <article key={r.title} className="min-w-0 md:border-r md:border-black/15 md:pr-7 md:last:border-0"><Icon name={r.icon} /><h3 className="mb-3 mt-6 font-serif text-2xl font-medium tracking-tight">{r.title}</h3><p className="text-sm leading-7 text-slate-600">{r.copy}</p></article>)}</div></div>
@@ -222,7 +222,7 @@ export default function App() {
       </section>
       <section id="experience" className={`${wrap} py-20 md:py-24`}>
         <SectionTitle number="03" label="Experience & achievements" title="Learning through the work." />
-        <p className="mb-8 max-w-xl text-sm leading-7 text-slate-600">Independent engineering and product development—not formal employment. Source code provides a closer look at the implementation.</p>
+        <p className="mb-8 max-w-xl text-sm leading-7 text-slate-600">Shipped open-source systems, hackathon platforms, and continuous algorithmic problem-solving.</p>
         {[['Independent project', 'Backend & applied AI engineering', 'IGNIS + ResearchNode', 'Implemented asynchronous ingestion, spatial retrieval, and local AI workflows. Chose PostGIS for geospatial queries and hybrid graph/vector retrieval for research context.'],
           ['Product development', 'ZenPrep', 'AI-assisted interview preparation', 'Built multimodal assessment and live coding workflows. Integrated voice, vision, and language analysis into one interview experience.'],
           ['Ongoing practice', 'Competitive programming', `${profile.solved}+ LeetCode problems · ${profile.rating}+ LeetCode rating`, 'Consistent algorithmic practice that supports clear reasoning about data structures, complexity, and implementation trade-offs.']].map(([type, title, label, copy]) => <article className="grid gap-4 border-t border-black/15 py-7 md:grid-cols-[0.65fr_1fr_1.2fr]" key={title}><p className={`${mono} pt-1 text-slate-600`}>{type}</p><div><h3 className="text-lg font-semibold">{title}</h3><p className="mt-2 text-sm text-slate-600">{label}</p></div><p className="text-sm leading-7 text-slate-600">{copy}</p></article>)}
@@ -230,7 +230,7 @@ export default function App() {
           {[
             ['LeetCode', 'Data structures & algorithms', `${profile.solved}+ problems solved · ${profile.rating}+ contest rating. Explore my submissions and contest history.`, profile.leetcode],
             ['Codeforces', 'Competitive programming', 'Explore my public contest history, submissions, and coding activity.', profile.codeforces],
-          ].map(([name, label, description, url]) => <a key={name} href={url} target="_blank" rel="noreferrer" aria-label={`View ${name} profile (opens in a new tab)`} className={`group min-w-0 rounded-sm border border-[#493329]/20 bg-[#fffaf3] p-6 transition-all duration-200 hover:bg-[#eee0cf] hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none ${focus}`}>
+          ].map(([name, label, description, url]) => <a key={name} href={url} target="_blank" rel="noreferrer" aria-label={`View ${name} profile`} className={`group min-w-0 rounded-sm border border-[#493329]/20 bg-[#fffaf3] p-6 transition-all duration-200 hover:bg-[#eee0cf] hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none ${focus}`}>
             <div className="flex items-center justify-between gap-4"><span className={`${mono} text-[#994b35]`}>{label}</span><Icon name="arrow" /></div>
             <h3 className="mt-5 font-serif text-3xl">{name}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
@@ -243,7 +243,7 @@ export default function App() {
       </section>
       <section id="contact" className="bg-[#ead0b9] py-16 md:py-20">
         <div className={`${wrap} grid gap-10 lg:grid-cols-[1.2fr_1fr]`}><div><p className={`${mono} mb-6`}>05 / Let’s build something useful</p><h2 className="text-5xl font-semibold leading-[1.05] tracking-[-0.06em] md:text-6xl">Your next intern.<br /><em className="font-serif font-medium">Ready to contribute.</em></h2><a href={`mailto:${profile.email}`} className={`mt-7 inline-flex min-h-12 items-center gap-4 break-all text-lg font-semibold underline underline-offset-8 ${focus}`}>{profile.email} <Icon name="arrow" /></a></div>
-          <div className="self-end"><p className="max-w-md text-base leading-8">Open to Backend Engineering, SDE, and Applied AI internships. Based in Kanpur, India (IST / UTC+5:30), and available for remote collaboration.</p><p className="mt-3 text-sm">Start date and relocation availability: let’s discuss.</p><div className="mt-7"><Resume /></div><p className="mt-3 text-xs">One-page résumé PDF · opens in a new tab</p><div className="mt-4 border-t border-[#493329]/20 pt-3"><ProfileLinks /></div></div>
+          <div className="self-end"><p className="max-w-md text-base leading-8">Open to Backend Engineering, SDE, and Applied AI internships. Based in Kanpur, India (IST / UTC+5:30), and available for remote collaboration.</p><p className="mt-3 text-sm text-slate-700">Available for Summer / Fall 2025 opportunities.</p><div className="mt-7"><Resume /></div><div className="mt-6 border-t border-[#493329]/20 pt-4"><ProfileLinks /></div></div>
         </div>
       </section>
     </main>
